@@ -1,29 +1,84 @@
+import { useState } from "react";
 import "./index.css";
 
+
 export default function Form() {
+
+    const [values,setValues] = useState({
+        name:'',
+        email:'',
+        phoneNumber:'',
+        city: "",
+        people:'',
+        comment:''
+    })
+    function handleInput(e){
+        const newObj = {...values,[e.target.name]: e.target.valu}
+        setValues(newObj)
+    }
+    
+    function handleValidation(event){
+        event.preventDefault();
+        if(values.name == ""){
+            alert("Kompaniya nomi kiritilishi shart")
+            return false
+        }
+        if(values.email == ""){
+            alert("Email  kiritilishi shart")
+            return false
+        }
+        if(values.phoneNumber == ""){
+            alert("Telefon raqam  kiritilishi shart")
+            return false
+        }
+        if(values.city == ""){
+            alert("Yashash joyi kiritilishi shart")
+            return false
+        }
+        if(values.people == ""){
+            alert("Xodimlar soni kiritilishi shart")
+            return false
+        }
+       
+        if(values.comment == ""){
+            alert("Izoh kiritilishi shart")
+            return false
+        }
+
+        return true
+    }
+
+function handlebutton(){
+    if(handleValidation){
+        alert("Barchasi muvofaqqiyatli bajarildi ✔")
+       document.querySelector(Form).reset()
+    }
+}
+
+
   return (
     <main className="form-container">
       <h2 className="company-information">Kompaniya ma'lumotlari</h2>
       <p className="about-company">Kompaniya haqidgi ma'lumotlarni kiriting</p>
 
-      <form>
+      <form onSubmit={handleValidation}>
         <div>
           <label htmlFor="company-name">
             Kompaniya nomi <span>*</span>
           </label>
-          <input id="company-name" type="text" placeholder="Kompaniya nomi" />
+          <input onChange={handleInput} id="company-name" name="name" type="text" placeholder="Kompaniya nomi" />
         </div>
         <div>
           <label htmlFor="company-email">
             Email<span>*</span>
           </label>
-          <input id="company-email" type="text" placeholder="Email" />
+          <input onChange={handleInput} name="email" id="company-email" type="text" placeholder="Email" />
         </div>
         <div>
           <label htmlFor="company-phone-number">
             Telefon raqami<span>*</span>
           </label>
-          <input id="company-phone-number" type="text" placeholder="UZ +9989" />
+          <input onChange={handleInput} name='phoneNumber' id="company-phone-number" type="text" placeholder="UZ +9989" />
         </div>
         <div>
           <label>
@@ -128,7 +183,7 @@ export default function Form() {
         <div className="company-region">
         <div>
          
-         <label htmlFor="company-phone-number">
+         <label>
            Davlat<span>*</span>
          </label>
          <select>
@@ -165,23 +220,23 @@ export default function Form() {
           <label htmlFor="company-residence">
             Yashash joyi <span>*</span>
           </label>
-          <input id="company-residence" type="text" placeholder="Yashash joyi" />
+          <input onChange={handleInput} name='city' id="company-residence" type="text" placeholder="Yashash joyi" />
         </div>
         <div>
           <label htmlFor="company-residence">
             Xodimlar soni <span>*</span>
           </label>
-          <input id="company-people" type="number" placeholder="Xodimlar soni" />
+          <input onChange={handleInput} name='people' id="company-people" type="number" placeholder="Xodimlar soni" />
         </div>
         <div>
           <label htmlFor="company-residence">
             Izoh <span>*</span>
           </label>
-    <textarea rows='2' maxLength={100} placeholder='Kompayina xaqida batafsil malumot'></textarea>
+    <textarea name='comment' rows='2' maxLength={100} placeholder='Kompayina xaqida batafsil malumot'></textarea>
         </div>
         <div className="buttons">
             <button>Orqaga</button>
-            <button>Keyingisi</button>
+            <button onClick={handlebutton} >Keyingisi</button>
         </div>
 
       </form>
