@@ -49,7 +49,7 @@ export default function Form() {
     }
 
 function handlebutton(){
-    if(handleValidation){
+    if(handleValidation()){
         alert("Barchasi muvofaqqiyatli bajarildi ✔")
        document.querySelector(Form).reset()
     }
